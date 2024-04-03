@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+import base64
 
 # Function to process Excel file and extract names and emails
 def process_excel(file):
