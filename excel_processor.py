@@ -9,6 +9,14 @@ def process_excel(file):
     else:
         st.error("Excel file must contain 'Name' and 'Email' columns.")
 
+def to_excel(df):
+    output = io.BytesIO()
+    writer = pd.ExcelWriter(output, engine='xlsxwriter')
+    df.to_excel(writer, index=False, sheet_name='Sheet1')
+    writer.save()
+    processed_data = output.getvalue()
+    return processed_data
+
 def main():
     st.title("Mentor Matching")  # Adding a title
     st.subheader("Upload an Excel file and extract Names and Emails")
@@ -23,6 +31,11 @@ def main():
         if df is not None:
             st.write("Extracted Names and Emails:")
             st.write(df)
+
+            csv = df.to_csv(index=False)
+            b64 = base64.b64encode(csv.encode()).decode()
+            href = f'<a href="data:file/csv;base64,{b64}" download="output.csv">Download CSV File</a>'
+            st.markdown(href, unsafe_allow_html=True)
 
 if __name__ == "__main__":
     main()
