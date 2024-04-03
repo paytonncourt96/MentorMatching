@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import base64
 
-# Function to process Excel file and extract names and emails
+
 def process_excel(file):
     df = pd.read_excel(file)
     if 'Name' in df.columns and 'Email' in df.columns:
@@ -19,7 +19,7 @@ def to_excel(df):
     return processed_data
 
 def main():
-    st.title("Mentor Matching")  # Adding a title
+    st.title("Mentor Matching")
     st.subheader("Upload an Excel file and extract Names and Emails")
     
 
