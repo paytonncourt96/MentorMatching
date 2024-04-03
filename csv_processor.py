@@ -25,8 +25,7 @@ def main():
 
     file = st.file_uploader("Upload CSV file", type=['csv'], accept_multiple_files=False)
 
-     if file is not None:
-        # Display uploaded file details
+    if file is not None:
         st.write("Uploaded file:", file.name)
         
         # Process the uploaded file
