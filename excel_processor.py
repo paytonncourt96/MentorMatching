@@ -1,8 +1,7 @@
-
 import streamlit as st
 import pandas as pd
 
-
+# Function to process Excel file and extract names and emails
 def process_excel(file):
     df = pd.read_excel(file)
     if 'Name' in df.columns and 'Email' in df.columns:
@@ -11,20 +10,17 @@ def process_excel(file):
         st.error("Excel file must contain 'Name' and 'Email' columns.")
 
 def main():
-    st.title("Mentor Matching Email Processer")
+    st.title("Mentor Matching")  # Adding a title
     st.subheader("Upload an Excel file and extract Names and Emails")
-
+    
 
     file = st.file_uploader("Upload Excel file", type=['xlsx', 'xls'], accept_multiple_files=False)
-
-
+    
     if file is not None:
         st.write("Uploaded file:", file.name)
         
-        # Process the uploaded file
         df = process_excel(file)
         if df is not None:
-            # Display the extracted names and emails in a table
             st.write("Extracted Names and Emails:")
             st.write(df)
 
