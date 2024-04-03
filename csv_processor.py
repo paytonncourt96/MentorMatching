@@ -11,12 +11,12 @@ import streamlit as st
 import pandas as pd
 
 
-def process_csv(file):
-    df = pd.read_csv(file)
+def process_excel(file):
+    df = pd.read_excel(file)
     if 'Name' in df.columns and 'Email' in df.columns:
         return df[['Name', 'Email']]
     else:
-        st.error("CSV file must contain 'Name' and 'Email' columns.")
+        st.error("Excel file must contain 'Name' and 'Email' columns.")
 
 def main():
     st.title("Mentor Matching Email Processer")
@@ -25,12 +25,12 @@ def main():
 
     file = st.file_uploader("Upload CSV file", type=['csv'], accept_multiple_files=False)
 
-    if file is not None:
+     if file is not None:
         # Display uploaded file details
         st.write("Uploaded file:", file.name)
-
+        
         # Process the uploaded file
-        df = process_csv(file)
+        df = process_excel(file)
         if df is not None:
             # Display the extracted names and emails in a table
             st.write("Extracted Names and Emails:")
