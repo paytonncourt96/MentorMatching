@@ -12,10 +12,11 @@ def process_excel(file):
 
 def main():
     st.title("Mentor Matching Email Processer")
-    st.subheader("Upload a CSV file and extract Names and Emails")
+    st.subheader("Upload an Excel file and extract Names and Emails")
 
 
-    file = st.file_uploader("Upload CSV file", type=['csv'], accept_multiple_files=False)
+    file = st.file_uploader("Upload Excel file", type=['xlsx', 'xls'], accept_multiple_files=False)
+
 
     if file is not None:
         st.write("Uploaded file:", file.name)
