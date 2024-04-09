@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 import base64
-
+import io
 
 def process_excel(file):
     df = pd.read_excel(file)
@@ -19,6 +19,12 @@ def to_excel(df):
     return processed_data
 
 def main():
+    st.set_page_config(page_title="Mentor Matching App", page_icon="IUF_Marketing_Lockup_V_WEB_REV.png")  # Set page title and icon
+
+    logo_image = 'https://github.com/paytonncourt96/MentorMatching/blob/main/IUF_Marketing_Lockup_V_WEB_REV.png'
+
+    st.image(logo_image, use_column_width=True)
+    
     st.title("Mentor Matching")
     st.subheader("Upload an Excel file and extract Names and Emails")
     
