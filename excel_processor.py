@@ -24,7 +24,7 @@ def main():
     logo_image = 'IUF_Marketing_Lockup_V_WEB_REV.png'
 
     st.image(logo_image, use_column_width=True)
-    
+    st.set_theme("dark")
     st.title("Mentor Matching")
     st.subheader("Upload an Excel file and extract Names and Emails")
     
