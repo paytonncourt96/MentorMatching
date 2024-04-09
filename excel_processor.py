@@ -21,7 +21,7 @@ def to_excel(df):
 def main():
     st.set_page_config(page_title="Mentor Matching App", page_icon="IUF_Marketing_Lockup_V_WEB_REV.png")  # Set page title and icon
 
-    logo_image = 'https://github.com/paytonncourt96/MentorMatching/blob/main/IUF_Marketing_Lockup_V_WEB_REV.png'
+    logo_image = 'IUF_Marketing_Lockup_V_WEB_REV.png'
 
     st.image(logo_image, use_column_width=True)
     
