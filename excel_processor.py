@@ -19,8 +19,8 @@ def to_excel(df):
     return processed_data
 
 def main():
-    st.set_page_config(page_title="Mentor Matching App", page_icon="IUF_Marketing_Lockup_V_WEB_REV.png") 
-    logo_image = 'IUF_Marketing_Lockup_V_WEB_REV.png'
+    st.set_page_config(page_title="Mentor Matching App", page_icon="IUF_logo_white.png") 
+    logo_image = 'IUF_logo_white.png'
 
     st.image(logo_image, use_column_width=True)
     st.title("Mentor Matching")
