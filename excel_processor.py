@@ -20,7 +20,7 @@ def to_excel(df):
 
 def main():
     st.set_page_config(page_title="Mentor Matching App", page_icon="IUF_logo_white.png") 
-    logo_image = 'IUF_logo_white.png'
+    logo_image = 'IUF_logo_black.png'
 
     st.image(logo_image, use_column_width=True)
     st.title("Mentor Matching")
