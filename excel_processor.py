@@ -113,18 +113,12 @@ def main():
             application_date = pd.to_datetime(row['Completion time']).strftime('%m/%d/%Y')
             skills_values = map_skills_to_target(row, target_columns_normalized)
 
-            df = df.append({
-                'Application Type': application_type,
-                'Submissions': submissions,
-                'Application Date': application_date,
+            df = pd.concat([df, pd.DataFrame({
+                'Application Type': [application_type],
+                'Submissions': [submissions],
+                'Application Date': [application_date],
                 **skills_values
-            }, ignore_index=True)
-
-        # Ensure df is properly initialized before attempting to append data
-        if 'target_df' not in locals():
-            target_df = df
-        else:
-            target_df = target_df.append(df, ignore_index=True)
+            })], ignore_index=True)
 
         for r_idx, row in enumerate(dataframe_to_rows(df, index=False, header=False), 3):
             for c_idx, value in enumerate(row, 1):
@@ -142,7 +136,7 @@ def main():
 
         # Display the download button for the new Excel file
         st.write("Processed Excel file:")
-        st.write(target_df)
+        st.write(df)
 
         new_excel_data = io.BytesIO()
         wb_new.save(new_excel_data)
@@ -152,3 +146,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
