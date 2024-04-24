@@ -120,30 +120,24 @@ def main():
                 **skills_values
             })], ignore_index=True)
 
-        for r_idx, row in enumerate(dataframe_to_rows(df, index=False, header=False), 3):
+        # Write data to the template worksheet
+        for r_idx, row in enumerate(dataframe_to_rows(df, index=False, header=False), 2):
             for c_idx, value in enumerate(row, 1):
-                ws_new.cell(row=r_idx, column=c_idx, value=value)
+                ws_template.cell(row=r_idx, column=c_idx, value=value)
 
-        value_to_color_map = {
-            1: PatternFill(start_color='00FF00', end_color='00FF00', fill_type='solid'),  # Green
-            2: PatternFill(start_color='FFFF00', end_color='FFFF00', fill_type='solid'),  # Yellow
-            3: PatternFill(start_color='FFA500', end_color='FFA500', fill_type='solid'),  # Orange
-            4: PatternFill(start_color='FFC0CB', end_color='FFC0CB', fill_type='solid'),  # Pink
-            5: PatternFill(start_color='87CEEB', end_color='87CEEB', fill_type='solid'),  # Light Blue
-        }
-
-        apply_color_based_on_value(ws_new, 2, 4, ws_new.max_column, value_to_color_map)
+        # Save the template with processed data
+        processed_file_path = 'Processed_Template.xlsx'
+        wb_template.save(processed_file_path)
 
         # Display the download button for the new Excel file
         st.write("Processed Excel file:")
         st.write(df)
 
-        new_excel_data = io.BytesIO()
-        wb_new.save(new_excel_data)
-        b64_new = base64.b64encode(new_excel_data.getvalue()).decode()
-        href_new = f'<a href="data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,{b64_new}" download="PairingResults.xlsx">Download Processed Excel File</a>'
-        st.markdown(href_new, unsafe_allow_html=True)
+        with open(processed_file_path, "rb") as f:
+            bytes_data = f.read()
+            b64_new = base64.b64encode(bytes_data).decode()
+            href_new = f'<a href="data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,{b64_new}" download="PairingResults.xlsx">Download Processed Excel File</a>'
+            st.markdown(href_new, unsafe_allow_html=True)
 
 if __name__ == "__main__":
     main()
-
