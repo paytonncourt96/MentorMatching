@@ -117,7 +117,7 @@ def main():
                 **skills_values
             }, ignore_index=True)
 
-        for r_idx, row in enumerate(dataframe_to_rows(target_df, index=False, header=False), 3):
+        for r_idx, row in enumerate(dataframe_to_rows(df, index=False, header=False), 3):
             for c_idx, value in enumerate(row, 1):
                 ws_new.cell(row=r_idx, column=c_idx, value=value)
 
