@@ -6,6 +6,7 @@ from openpyxl import load_workbook
 from openpyxl.styles import PatternFill
 from openpyxl.utils.dataframe import dataframe_to_rows
 
+
 # Existing function for processing Excel files
 def process_excel(file):
     df = pd.read_excel(file)
@@ -78,6 +79,11 @@ def main():
     if new_file is not None:
         st.write("Uploaded file:", new_file.name)
 
+        # Load the template workbook
+        template_url = 'https://raw.githubusercontent.com/paytonncourt96/MentorMatching/blob/main/Template.xlsx'
+        wb_template = load_workbook(template_url)
+        ws_template = wb_template.active
+
         target_columns = [
             'analytical thinking', 'business processes', 'decision making', 'effective communication / listening',
             'negotiation', 'managing change', 'data analytics / literacy', 'problem solving', 'managing resources',
@@ -92,10 +98,19 @@ def main():
         
         target_columns_normalized = [normalize_skill_name(col) for col in target_columns]
 
-        wb = load_workbook(new_file)
-        ws = wb.active
+        wb_new = load_workbook(new_file)
+        ws_new = wb_new.active
 
         target_df = pd.DataFrame(columns=[
+            'Application Type', 'Submissions', 'Application Date'] + target_columns_normalized)
+
+        for index, row in pd.read_excel(new_file).iterrows():
+            application_type = row['Are you interested in being a mentor or mentee?']
+            submissions = extract_submissions(row['Name'])
+            application_date = pd.to_datetime(row['Completion time']).strftime('%m/%d/%Y')
+            skills_values = map_skills_to_target(row, target_columns_normalized)
+
+            target_df = pd.DataFrame(columns=[
             'Application Type', 'Submissions', 'Application Date'] + target_columns_normalized)
 
         for index, row in pd.read_excel(new_file).iterrows():
@@ -113,7 +128,7 @@ def main():
 
         for r_idx, row in enumerate(dataframe_to_rows(target_df, index=False, header=False), 3):
             for c_idx, value in enumerate(row, 1):
-                ws.cell(row=r_idx, column=c_idx, value=value)
+                ws_new.cell(row=r_idx, column=c_idx, value=value)
 
         value_to_color_map = {
             1: PatternFill(start_color='00FF00', end_color='00FF00', fill_type='solid'),  # Green
@@ -123,14 +138,14 @@ def main():
             5: PatternFill(start_color='87CEEB', end_color='87CEEB', fill_type='solid'),  # Light Blue
         }
 
-        apply_color_based_on_value(ws, 2, 4, ws.max_column, value_to_color_map)
+        apply_color_based_on_value(ws_new, 2, 4, ws_new.max_column, value_to_color_map)
 
         # Display the download button for the new Excel file
         st.write("Processed Excel file:")
         st.write(target_df)
 
         new_excel_data = io.BytesIO()
-        wb.save(new_excel_data)
+        wb_new.save(new_excel_data)
         b64_new = base64.b64encode(new_excel_data.getvalue()).decode()
         href_new = f'<a href="data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,{b64_new}" download="PairingResults.xlsx">Download Processed Excel File</a>'
         st.markdown(href_new, unsafe_allow_html=True)
