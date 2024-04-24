@@ -121,9 +121,11 @@ def main():
             })], ignore_index=True)
 
         # Write data to the template worksheet
-        for r_idx, row in enumerate(dataframe_to_rows(df, index=False, header=False), 2):
+        # Write data to the template worksheet
+        for r_idx, row in enumerate(dataframe_to_rows(df, index=False, header=False), 4):
             for c_idx, value in enumerate(row, 1):
                 ws_template.cell(row=r_idx, column=c_idx, value=value)
+
 
         # Save the template with processed data
         processed_file_path = 'Processed_Template.xlsx'
