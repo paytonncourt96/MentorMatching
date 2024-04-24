@@ -104,14 +104,7 @@ def main():
         target_df = pd.DataFrame(columns=[
             'Application Type', 'Submissions', 'Application Date'] + target_columns_normalized)
 
-        for index, row in pd.read_excel(new_file).iterrows():
-            application_type = row['Are you interested in being a mentor or mentee?']
-            submissions = extract_submissions(row['Name'])
-            application_date = pd.to_datetime(row['Completion time']).strftime('%m/%d/%Y')
-            skills_values = map_skills_to_target(row, target_columns_normalized)
-
-            target_df = pd.DataFrame(columns=[
-            'Application Type', 'Submissions', 'Application Date'] + target_columns_normalized)
+        
 
         for index, row in pd.read_excel(new_file).iterrows():
             application_type = row['Are you interested in being a mentor or mentee?']
