@@ -6,8 +6,7 @@ from openpyxl import load_workbook
 from openpyxl.styles import PatternFill
 from openpyxl.utils.dataframe import dataframe_to_rows
 
-
-# Existing function for processing Excel files
+# Function to process existing Excel files
 def process_excel(file):
     df = pd.read_excel(file)
     if 'Name' in df.columns and 'Email' in df.columns:
@@ -15,16 +14,18 @@ def process_excel(file):
     else:
         st.error("Excel file must contain 'Name' and 'Email' columns.")
 
-# New functions for processing and generating Excel files
+# Function to extract submissions from full names
 def extract_submissions(full_name):
     if pd.isna(full_name):
         return ""
     parts = full_name.split()
     return parts[0] + ' ' + parts[1][0] if len(parts) > 1 else full_name
 
+# Function to normalize skill names
 def normalize_skill_name(skill):
     return skill.lower().strip()
 
+# Function to map skills to target DataFrame
 def map_skills_to_target(row, target_columns_normalized):
     target_values = {column: None for column in target_columns_normalized}
 
@@ -43,12 +44,14 @@ def map_skills_to_target(row, target_columns_normalized):
 
     return target_values
 
+# Function to apply background color based on values
 def apply_color_based_on_value(ws, start_row, start_col, end_col, value_to_color_map):
     for row in ws.iter_rows(min_row=start_row, max_row=ws.max_row, min_col=start_col, max_col=end_col):
         for cell in row:
             if cell.value in value_to_color_map:
                 cell.fill = value_to_color_map[cell.value]
 
+# Main function
 def main():
     st.set_page_config(page_title="Mentor Matching App", page_icon="IUF_logo_white.png") 
     logo_image = 'IUF_logo_black.png'
@@ -133,7 +136,7 @@ def main():
 
         # Display the download button for the new Excel file
         st.write("Processed Excel file:")
-        st.write(target_df)
+        st.write(df)
 
         new_excel_data = io.BytesIO()
         wb_new.save(new_excel_data)
@@ -143,4 +146,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
