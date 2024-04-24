@@ -77,7 +77,7 @@ def main():
             st.markdown(href_existing, unsafe_allow_html=True)
 
     # Second file uploader and processing
-    st.subheader("Upload an Excel file and Skill Scores and Clean Data file export")
+    st.subheader("Upload Survey results to retrieve cleansed Skill Scores")
     new_file = st.file_uploader("Upload New Excel file", type=['xlsx', 'xls'], accept_multiple_files=False)
     
     if new_file is not None:
