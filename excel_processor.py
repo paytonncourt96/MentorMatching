@@ -80,7 +80,7 @@ def main():
         st.write("Uploaded file:", new_file.name)
 
         # Load the template workbook
-        template_url = 'https://raw.githubusercontent.com/paytonncourt96/MentorMatching/blob/main/Template.xlsx'
+        template_url = 'Template.xlsx'
         wb_template = load_workbook(template_url)
         ws_template = wb_template.active
 
