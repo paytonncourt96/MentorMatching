@@ -88,15 +88,14 @@ def main():
         ws_template = wb_template.active
 
         target_columns = [
-            'analytical thinking', 'business processes', 'decision making', 'effective communication / listening',
-            'negotiation', 'managing change', 'data analytics / literacy', 'problem solving', 'managing resources',
-            'project management', 'conflict management', 'using financials', 'presentations',
-            'collaborating with others', 'compliance practices', 'legal considerations', 'fundraising principles',
-            'real estate practices', 'policies / procedures principles', 'customer service', 'facilitation',
-            'branding & marketing', 'business communications', 'planning & organizing', 'administrative practices',
-            'building relationships', 'systems design & thinking', 'navigating cultural differences',
-            'navigating organizational structures', 'technology incorporation', 'database management',
-            'accounting operations skills', 'investments operations skills'
+            'Administrative Practices', 'Branding and Marketing Principles', 'Building Relationships', 'Business Communications',
+            'Business Writing', 'Change Management Processes', 'Collaborating with Diverse Constituencies', 'Conflict Management', 'Customer Service',
+            'Data Analysis and Literacy', 'Decision Making', 'Effective Communications and Listening', 'Effective Facilitation',
+            'Effective Presentations', 'Employee Engagement Practices', 'Fundraising Principles', 'HR&C Practices',
+            'Investment Strategies and Planning', 'Legal Considerations', 'Managing Change (Behavioral)', 'Navigating Cultural Differences',
+            'Navigating Org. Hierarchies / Structures', 'Negotiation Practices', 'Policy and Procedure Practices', 'Problem Solving Practices',
+            'Project Management and Planning', 'Real Estate Practices', 'Research and Analytical Thinking',
+            'Systems Design', 'Using Financials and Budgeting'
         ]
         
         target_columns_normalized = [normalize_skill_name(col) for col in target_columns]
